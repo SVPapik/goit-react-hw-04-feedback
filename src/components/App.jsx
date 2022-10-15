@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FeedbackOptions from './FeedbackOptions';
+import Statistics from './Statistics';
 
 class App extends Component {
   state = {
@@ -9,14 +10,13 @@ class App extends Component {
   };
 
   onLeaveFeedback = e => {
-    const vote = e.target.vote;
+    const vote = e.target.name;
     this.setState(prevState => ({ [vote]: prevState[vote] + 1 }));
   };
 
   render() {
     const options = Object.keys(this.state);
-    // const { good, neutral, bad } = this.state;
-
+    const { good, neutral, bad } = this.state;
     return (
       <div>
         <h2>Please leave feedback</h2>
@@ -25,7 +25,7 @@ class App extends Component {
           onLeaveFeedback={this.onLeaveFeedback}
         />
         <h2>Statistics</h2>
-        <ul></ul>
+        <Statistics good={good} neutral={neutral} bad={bad} />
       </div>
     );
   }
