@@ -19,5 +19,6 @@ export const Button = styled.button`
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   &:hover {
     transform: scale(1.2);
+    transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 `;
