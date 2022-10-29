@@ -3,6 +3,7 @@ import FeedbackOptions from './FeedbackOptions';
 import Section from './Section';
 import Statistics from './Statistics';
 import Notification from './Notification';
+// import React from 'react';
 
 const App = () => {
   const [state, setState] = useState({ good: 0, neutral: 0, bad: 0 });
