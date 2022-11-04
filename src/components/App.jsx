@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FeedbackOptions from './FeedbackOptions';
 import Section from './Section';
 import Statistics from './Statistics';
@@ -6,20 +6,21 @@ import Notification from './Notification';
 
 const App = () => {
   const [state, setState] = useState({ good: 0, neutral: 0, bad: 0 });
-  const [totalVotes, setTotalVotes] = useState({ total: 0 });
-  const [rate, setRate] = useState({ percentage: 0 });
+  const [total, setTotal] = useState(0);
+  const [rate, setRate] = useState(0);
+
+  const { good, neutral, bad } = state;
+  const options = Object.keys(state);
 
   const onLeaveFeedback = option => {
     setState(prevState => ({ ...prevState, [option]: prevState[option] + 1 }));
-    setTotalVotes(() => ({ total: total + 1 }));
-    const percent = +Math.round((good / total) * 100);
-    setRate(() => ({ percentage: percent }));
+    setTotal(() => total + 1);
   };
 
-  const options = Object.keys(state);
-  const { good, neutral, bad } = state;
-  const { total } = totalVotes;
-  const { percentage } = rate;
+  useEffect(() => {
+    setRate(Math.round((good / total) * 100));
+  }, [good, total]);
+
   return (
     <div className="widget-container">
       <Section title="Please leave feedback">
@@ -32,7 +33,7 @@ const App = () => {
             neutral={neutral}
             bad={bad}
             total={total}
-            positivePercentage={percentage}
+            positivePercentage={rate}
           />
         ) : (
           <Notification message="There is no feedback"></Notification>
